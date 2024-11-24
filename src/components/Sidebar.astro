@@ -1,0 +1,105 @@
+---
+import { House, LayoutGrid, Heart, User, Settings } from "lucide-astro";
+import Logo from "../svg/Logo.astro";
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+---
+
+<sidebar>
+  <div
+    class="logo bg-white rounded-full shadow-sm overflow-hidden max-w-12 mx-auto"
+  >
+    <Logo />
+  </div>
+  <div
+    class="nav-items bg-white flex flex-col gap-2 items-center p-1 rounded-full shadow-sm"
+  >
+    <a class={currentPath === "" ? "nav-item active" : "nav-item"} href="/">
+      <House />
+    </a>
+    <a
+      class={currentPath === "explore" ? "nav-item active" : "nav-item"}
+      href="/explore"><LayoutGrid /></a
+    >
+    <a
+      class={currentPath === "wishlist" ? "nav-item active" : "nav-item"}
+      href="/wishlist"><Heart /></a
+    >
+    <a
+      class={currentPath === "account" ? "nav-item active" : "nav-item"}
+      href="/account"><User /></a
+    >
+  </div>
+  <div
+    class={currentPath === "settings"
+      ? "nav-item settings active shadow-sm"
+      : "nav-item settings"}
+  >
+    <a href="/settings"><Settings /></a>
+  </div>
+</sidebar>
+
+<style>
+  sidebar {
+    width: -moz-fit-content;
+    width: fit-content;
+    height: 100dvh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    max-width: calc(100% - 2rem);
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: -1;
+  }
+  @media (max-width: 768px) {
+    sidebar {
+      flex-direction: row;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      bottom: 0;
+      align-items: end;
+      justify-content: center;
+    }
+
+    sidebar .nav-items {
+      flex-direction: row;
+    }
+    .logo,
+    .settings {
+      display: none;
+    }
+  }
+
+  .nav-items .nav-item svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .nav-items {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-items .nav-item {
+    border-radius: 100%;
+    padding: 1rem;
+    transition: background 0.3s ease;
+  }
+  .nav-item.active {
+    background-color: #f2f2f2;
+    color: var(--main);
+  }
+  .nav-item.settings {
+    border-radius: 100%;
+    padding: 1rem;
+    transition: background 0.3s ease;
+  }
+  .nav-item.settings.active {
+    background-color: #fff;
+  }
+</style>

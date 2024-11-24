@@ -1,0 +1,78 @@
+---
+import { Search } from "lucide-astro";
+---
+
+<section class="relative">
+  <div class="search">
+    <input id="search-input" type="text" placeholder="Search" />
+    <Search class="w-4 h-4" />
+  </div>
+  <div id="search-container" class="search-container">loading...</div>
+</section>
+
+<style>
+  .search {
+    display: flex;
+    background: #f2f2f2;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .search {
+      display: none;
+    }
+  }
+  .search input {
+    outline: transparent;
+    background: #f2f2f2;
+    transition: width 0.3s ease-in-out;
+    width: 150px; /* Initial width */
+  }
+  .search input:focus {
+    width: 350px; /* Width on focus */
+  }
+
+  .search-container.focused {
+    width: 400px; /* Width on search input focus */
+    opacity: 1;
+    scale: 1;
+  }
+  .search-container {
+    position: absolute;
+    bottom: calc(-100%-1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0rem;
+    width: 250px;
+    opacity: 0;
+    scale: 0.8;
+    transform-origin: top center;
+    transition: all 0.5s var(--main-transition-effect-bounce);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById(
+      "search-input"
+    ) as HTMLInputElement;
+    const searchContainer = document.getElementById(
+      "search-container"
+    ) as HTMLDivElement;
+    if (searchInput && searchContainer) {
+      searchInput.addEventListener("focus", () => {
+        searchContainer.classList.add("focused");
+      });
+      searchInput.addEventListener("blur", () => {
+        searchContainer.classList.remove("focused");
+      });
+    } else {
+      console.error("Element not found");
+    }
+  });
+</script>

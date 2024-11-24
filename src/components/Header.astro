@@ -1,0 +1,105 @@
+---
+import { Search, ShoppingBag } from "lucide-astro";
+import SearchContainer from "./Header.Search.astro";
+---
+
+<header>
+  <div class="header">
+    <div class="address max-w-48">
+      <h6
+        class="text-h6 font-semibold text-ellipsis overflow-hidden whitespace-nowrap"
+      >
+        2456 Dwarka Mor,New Delhi
+      </h6>
+      <p class="text-sm text-gray-400">Your address</p>
+    </div>
+    <SearchContainer />
+    <div
+      id="cart-button"
+      class="cart inline-flex items-center gap-2 text-green-500"
+    >
+      <ShoppingBag />
+      <h6 class="text-h6">02</h6>
+    </div>
+  </div>
+</header>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-content">
+    <h2>Your Cart</h2>
+    <!-- Add your cart items here -->
+  </div>
+</div>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+  header {
+    padding: 0.5rem;
+  }
+  .header {
+    padding: 0.5rem 1.5rem;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header .address {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart {
+    font-family: "Anton", serif;
+    font-weight: 600;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    padding: 0.5rem;
+
+    transition: right 0.4s var(--main-transition-effect-bounce);
+  }
+  .sidebar.open {
+    right: 0;
+  }
+  .sidebar-content {
+    background: #fff;
+    padding: 1rem;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cartButton = document.getElementById("cart-button");
+    const sidebar = document.getElementById("sidebar");
+    if (cartButton && sidebar) {
+      cartButton.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+      });
+      document.addEventListener("click", (event) => {
+        const target = event.target as Node;
+        if (
+          sidebar.classList.contains("open") &&
+          !sidebar.contains(target) &&
+          !cartButton.contains(target)
+        ) {
+          sidebar.classList.remove("open");
+        }
+      });
+    } else {
+      console.error("Element not found");
+    }
+  });
+</script>
+git add . git commit -m "first commit" git branch -M main git remote add origin https://github.com/TechisHeaven/quickcart.git
+git push -u origin main
