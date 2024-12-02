@@ -1,0 +1,66 @@
+---
+import Banner from "./Banner.astro";
+const BannerD = [
+  {
+    title: "Food",
+    img: "/banner-1.webp",
+  },
+  {
+    title: "Grocery",
+    img: "/banner-2.webp",
+  },
+  {
+    title: "Snacks",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Shopping",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Grocery Store",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Grocery Store",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Grocery Store",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Grocery Store",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Grocery Store",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Grocery Store",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Grocery Store",
+    img: "/banner-3.webp",
+  },
+  {
+    title: "Grocery Store",
+    img: "/banner-3.webp",
+  },
+];
+---
+
+<div class="catogeries py-4">
+  <h4>Catogeries</h4>
+  <Banner slides={BannerD} slidesToShow={5} />
+</div>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+  .catogeries h4 {
+    font-family: "Anton", serif;
+  }
+</style>

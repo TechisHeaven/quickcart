@@ -1,9 +1,29 @@
 ---
+import Banner from "../components/Banner.astro";
 import Layout from "../layouts/Layout.astro";
+import Catogeries from "../components/Catogories.astro";
+import Button from "../components/Button.astro";
+const BannerData = [
+  {
+    title: "Meal Planning with Grocery Store",
+    img: "/banner-1.webp",
+  },
+  {
+    title: "Making the most of your Grocery",
+    img: "/banner-2.webp",
+  },
+  {
+    title: "Shopping with Grocery Store",
+    img: "/banner-3.webp",
+  },
+];
 ---
 
 <Layout title="QuickCart">
-  <main>Quick Cart</main>
+  <main>
+    <Banner slides={BannerData} slidesToShow={2} />
+    <Catogeries />
+  </main>
 </Layout>
 
 <style>
