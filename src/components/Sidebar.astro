@@ -2,7 +2,7 @@
 import { House, LayoutGrid, Heart, User, Settings } from "lucide-astro";
 import Logo from "../svg/Logo.astro";
 const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1);
+let currentPath = `/${pathname.slice(1)}`;
 ---
 
 <sidebar class="relative">
@@ -14,24 +14,35 @@ const currentPath = pathname.slice(1);
   <div
     class="nav-items bg-white flex flex-col gap-2 items-center p-1 rounded-full shadow-sm"
   >
-    <a class={currentPath === "" ? "nav-item active" : "nav-item"} href="/">
+    <a
+      class={currentPath === "/" || currentPath === ""
+        ? "nav-item active"
+        : "nav-item"}
+      href="/"
+    >
       <House />
     </a>
     <a
-      class={currentPath === "explore" ? "nav-item active" : "nav-item"}
+      class={currentPath === "explore" || currentPath === "/explore"
+        ? "nav-item active"
+        : "nav-item"}
       href="/explore"><LayoutGrid /></a
     >
     <a
-      class={currentPath === "wishlist" ? "nav-item active" : "nav-item"}
+      class={currentPath === "wishlist" || currentPath === "/wishlist"
+        ? "nav-item active"
+        : "nav-item"}
       href="/wishlist"><Heart /></a
     >
     <a
-      class={currentPath === "account" ? "nav-item active" : "nav-item"}
+      class={currentPath === "account" || currentPath === "/account"
+        ? "nav-item active"
+        : "nav-item"}
       href="/account"><User /></a
     >
   </div>
   <div
-    class={currentPath === "settings"
+    class={currentPath === "settings" || currentPath === "/settings"
       ? "nav-item settings active shadow-sm"
       : "nav-item settings"}
   >
