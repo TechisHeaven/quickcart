@@ -4,7 +4,7 @@ import SearchContainer from "./Header.Search.astro";
 ---
 
 <header>
-  <div class="header">
+  <div class="header relative">
     <div class="address max-w-48">
       <h6
         class="text-h6 font-semibold text-ellipsis overflow-hidden whitespace-nowrap"
@@ -16,7 +16,7 @@ import SearchContainer from "./Header.Search.astro";
     <SearchContainer />
     <div
       id="cart-button"
-      class="cart inline-flex items-center gap-2 text-green-500"
+      class="cart inline-flex items-center gap-2 text-green-500 cursor-pointer"
     >
       <ShoppingBag />
       <h6 class="text-h6">02</h6>
@@ -24,7 +24,7 @@ import SearchContainer from "./Header.Search.astro";
   </div>
 </header>
 
-<div class="sidebar" id="sidebar">
+<div class="sidebar z-10" id="sidebar">
   <div class="sidebar-content">
     <h2>Your Cart</h2>
     <!-- Add your cart items here -->

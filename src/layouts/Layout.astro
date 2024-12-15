@@ -21,7 +21,7 @@ const { title } = Astro.props;
   </head>
   <body class="flex-col-reverse md:flex-row">
     <Sidebar />
-    <div class="w-full">
+    <div class="w-full md:w-[calc(100%-100px)]">
       <Header />
       <slot />
     </div>

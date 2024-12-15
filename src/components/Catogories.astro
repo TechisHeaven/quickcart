@@ -11,7 +11,7 @@ const BannerD = [
   },
   {
     title: "Snacks",
-    img: "/banner-3.webp",
+    img: "/banner-4.webp",
   },
   {
     title: "Shopping",
@@ -50,13 +50,51 @@ const BannerD = [
     img: "/banner-3.webp",
   },
 ];
+let slidesToShow = 5;
 ---
 
 <div class="catogeries py-4">
   <h4>Catogeries</h4>
-  <Banner slides={BannerD} slidesToShow={5} />
+  <Banner
+    uniqueId={"catogeries-banner"}
+    slides={BannerD}
+    slidesToShow={slidesToShow}
+  />
 </div>
+<script define:vars={{ slidesToShow }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const getWindowSize = () => ({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+    const getSlidesToShow = (options = { large: 3, medium: 2, small: 1 }) => {
+      const windowWidth = getWindowSize().width;
+      const largeBreakpoint = 1280;
+      const mediumBreakpoint = 720;
 
+      if (windowWidth >= largeBreakpoint) {
+        return options.large;
+      } else if (windowWidth >= mediumBreakpoint) {
+        return options.medium;
+      } else {
+        return options.small;
+      }
+    };
+    let windowSize = getWindowSize();
+    let slidesToShow = getSlidesToShow({ large: 5, medium: 4, small: 2 });
+
+    // Update slidesToShow on resize
+    const updateWindowSize = () => {
+      let slidesToShow = getSlidesToShow({ large: 5, medium: 4, small: 2 });
+      // Update both components with the new slidesToShow value
+      const banner = document.querySelector("#catogeries-banner");
+      banner.setAttribute("slidesToShow", slidesToShow);
+    };
+
+    window.addEventListener("resize", updateWindowSize);
+    updateWindowSize();
+  });
+</script>
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 

@@ -4,11 +4,11 @@ import BannerSlide from "./Banner.Slide.astro";
 const uniqueId =
   Astro.props.uniqueId ||
   `banner-${Math.random().toString(36).substring(2, 9)}`;
-let slidesToShow = Astro.props.slidesToShow || 1;
+let slidesToShowDefault = Astro.props.slidesToShow || 1;
 let slides = Astro.props.slides || [];
 ---
 
-<div id={uniqueId} class="overflow-hidden relative w-full">
+<div id={uniqueId} class="overflow-hidden relative">
   <div
     class="slider flex transition-transform duration-300 ease-in-out gap-2 h-full"
     id={`${uniqueId}-slider`}
@@ -21,8 +21,9 @@ let slides = Astro.props.slides || [];
   </div>
 </div>
 
-<script is:inline define:vars={{ slidesToShow, uniqueId }}>
+<script is:inline define:vars={{ slidesToShowDefault, uniqueId }}>
   document.addEventListener("DOMContentLoaded", () => {
+    let slidesToShow = slidesToShowDefault;
     const sliderId = `${uniqueId}-slider`;
     const slider = document.getElementById(sliderId);
     const slides = slider.querySelectorAll(".slide");
@@ -35,12 +36,16 @@ let slides = Astro.props.slides || [];
     let animationID;
 
     const updateSlidesToShow = () => {
-      const windowWidth = window.innerWidth;
-      if (windowWidth <= 768) {
-        slidesToShow = 1;
-      } else if (windowWidth <= 1024) {
-        slidesToShow = 2; // Adjust for medium screens
-      }
+      const slidesToShowAttr = document.querySelector(`#${uniqueId}`);
+      // console.log();
+      slidesToShow =
+        slidesToShowAttr.getAttribute("slidestoshow") || slidesToShow;
+      // const windowWidth = window.innerWidth;
+      // if (windowWidth <= 768) {
+      //   slidesToShow = 1;
+      // } else if (windowWidth <= 1024) {
+      //   slidesToShow = 2; // Adjust for medium screens
+      // }
 
       // Update flex-basis dynamically
       slides.forEach((slide) => {
@@ -108,6 +113,7 @@ let slides = Astro.props.slides || [];
 
     // Handle window resize
     window.addEventListener("resize", updateSlidesToShow);
+    window.addEventListener("load", updateSlidesToShow);
 
     // Initialize
     updateSlidesToShow();

@@ -3,6 +3,8 @@ import Banner from "../components/Banner.astro";
 import Layout from "../layouts/Layout.astro";
 import Catogeries from "../components/Catogories.astro";
 import Button from "../components/Button.astro";
+
+// Banner data
 const BannerData = [
   {
     title: "Meal Planning with Grocery Store",
@@ -14,17 +16,61 @@ const BannerData = [
   },
   {
     title: "Shopping with Grocery Store",
-    img: "/banner-3.webp",
+    img: "/banner-4.webp",
   },
 ];
+
+// let slidesToShow = windowSize.width > 768 ? 2 : 1;
+
+let slidesToShow = 3;
 ---
 
 <Layout title="QuickCart">
   <main>
-    <Banner slides={BannerData} slidesToShow={2} />
+    <Banner
+      uniqueId="main-banner"
+      slides={BannerData}
+      slidesToShow={slidesToShow}
+    />
     <Catogeries />
   </main>
 </Layout>
+
+<script define:vars={{ slidesToShow }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const getWindowSize = () => ({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+    const getSlidesToShow = (options = { large: 3, medium: 2, small: 1 }) => {
+      const windowWidth = getWindowSize().width;
+      const largeBreakpoint = 1280;
+      const mediumBreakpoint = 720;
+
+      if (windowWidth >= largeBreakpoint) {
+        return options.large;
+      } else if (windowWidth >= mediumBreakpoint) {
+        return options.medium;
+      } else {
+        return options.small;
+      }
+    };
+
+    let slidesToShow = getSlidesToShow({ large: 3, medium: 2, small: 1 });
+
+    // Update slidesToShow on resize
+    const updateWindowSize = () => {
+      slidesToShow = getSlidesToShow({ large: 3, medium: 2, small: 1 });
+
+      // Update both components with the new slidesToShow value
+      const banner = document.querySelector("#main-banner");
+      banner.setAttribute("slidesToShow", slidesToShow);
+    };
+
+    window.addEventListener("resize", updateWindowSize);
+    updateWindowSize();
+  });
+</script>
 
 <style>
   main {
